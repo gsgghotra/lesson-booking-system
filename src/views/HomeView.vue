@@ -10,62 +10,34 @@
             <span class="fas fa-shopping-cart"></span> Checkout
           </button>
         </header>
-        <!-- Sorting Options -->
-        <div id="sort">
-            <p>Sort by</p>
-            <div v-for="(selectedValue, key) in sorting" :key="key">
 
-                <input type="radio" id="key" name="key" value="selectedValue" v-on:click='sortBy(selectedValue)'>
-                <label for="key"> {{key}} </label>
-                <br>
-            </div>
+        <div class="filter_section">
+                    <!-- Searching Options -->
+          <div id="search">
+              <input placeholder="Search.." type="text" v-model="search" class="searchBar"> {{filteredLessons}}
+          </div>
+          <!-- Sorting Options -->
+          <div id="sort">
+              <p>Sort by</p>
+              <div class="sort_option" v-for="(selectedValue, key) in sorting" :key="key">
 
-            <p>
-                <strong>Order:</strong>
-                <select v-model="orderAscending">
-                <option disabled value="">Order By</option>
-                <option v-for="(selectedValue, key) in userOrder" v-on:change='ss' v-bind:value="selectedValue" :key="key"/>
-                    {{selectedValue}}
-            </select>
-            </p>
+                  <input type="radio" id="key" name="key" value="selectedValue" v-on:click='sortBy(selectedValue)'>
+                  <label for="key"> {{key}} </label>
+                  <br>
+              </div>
+
+              <p>
+                  <strong>Order: </strong>
+                  <select v-model="orderAscending" class="dropdown">
+                    <option disabled value="">Order By</option>
+                    <option v-for="(selectedValue, key) in userOrder" v-on:change='ss' v-bind:value="selectedValue" :key="key">
+                        {{selectedValue}}
+                    </option>
+                </select>
+              </p>
+          </div>
         </div>
-
-        <!-- Searching Options -->
-        <div id="search">
-            <input placeholder="Search..." type="text" v-model="search"> {{filteredLessons}}
-        </div>
-
-        <div class="contain">
-              <div class="prod_box" v-for="(lesson, key) in lessons" :key="key">
-                  <!-- lesson information -->
-                  <h2 v-text="lesson.subject"> </h2>
-                  <img v-bind:src="lesson.image" height="125">
-                  <p v-text="lesson.location"> </p>
-                  <p>Price:£{{lesson.price}}</p>
-                  <p>Available:{{lesson.availableInventory}}</p>
-                  <!-- Font Awesome generated icons -->
-                  <div>
-                      <span v-for='(n, key) in lesson.rating' :key="key"><i class="fas fa-star"></i></span>
-                      <span v-for='(n, key) in 5-lesson.rating' :key="key" ><i class="far fa-star"></i></span>
-
-                  </div>
-                  <!-- Button for adding lesson to cart -->
-                  <button v-on:click='addToCart(lesson)' v-if='lesson.availableInventory'>
-                  Add to cart
-                  </button>
-                  <!-- Disable Button for adding lesson to cart when required-->
-                  <button disabled='disabled' v-else>
-                      Add to cart
-                  </button>
-                  <span v-if='lesson.availableInventory < 1'>
-                      All out!
-                  </span>
-                  <span v-else-if="lesson.availableInventory  < 5 ">
-                      Only {{lesson.availableInventory }} left!
-                  </span>
-                  <span v-else>Buy Now</span>
-                </div>
-        </div>
+        <Lesson  :lessons="lessons"  @addProduct='addToCart'/>
     </div>
     <div v-else>
       <!-- checkout page code -->
@@ -83,7 +55,7 @@
               <p v-text="item.lessons.location"> </p>
               <p>Price: {{item.lessons.price}}</p>
               <button v-on:click="deleteFromCart(item)">
-              remove
+              Remove
           </button>
           </div>
       </div>
@@ -92,12 +64,12 @@
       <div id="checkout">
           <h2> Checkout</h2>
 
-          <form action="#" method="GET" onchange="return checkData()" name="signup">
+          <form action="#" method="GET" onchange="return checkData()" name="signup" class="signup">
               <br /><br />Name:
               <input name="NAME" type="text" id="NAME" v-model="OrderName" />
               <br /><br /> Phone Number:
               <input name="PHONE" type="text" id="PHONE" v-model="OrderPhone" />
-              <input @click="submitForm()" v-bind:disabled='formIsNotCorrect' id="Button" type="submit" value="Place Order">
+              <input @click="submitForm()" v-bind:disabled='formIsNotCorrect' id="Button" type="submit" value="Place Order"  class="submit"/>
           </form>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <About msg="Welcome to Your Vue.js App"/>
+    <About msg="Lesson booking System"/>
   </div>
 </template>
 

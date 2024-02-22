@@ -2,11 +2,11 @@
     <div class="contain">
         <div class="prod_box" v-for="(lesson, index) in lessons" :key="'A' + index">
             <!-- lesson information -->
-            <h2 v-text="lesson.subject"> </h2>
             <img v-bind:src="lesson.image" height="125">
-            <p v-text="lesson.location"> </p>
-            <p>Price:£{{lesson.price}}</p>
-            <p>Available:{{lesson.availableInventory}}</p>
+            <h2 v-text="lesson.subject"> </h2>
+            <p>Price: £{{lesson.price}}</p>
+            <p>Campus: {{ lesson.location }}</p>
+            <p> Places Available: {{lesson.availableInventory}}</p>
             <!-- Font Awesome generated icons -->
             <div>
                 <span v-for='n in lesson.rating' :key="n + index"><i class="fas fa-star"></i></span>
@@ -17,16 +17,12 @@
                 Add to cart
             </button>
             <!-- Disable Button for adding lesson to cart when required-->
-            <button disabled='disabled' v-else>
-                Add to cart
+            <button class="sold_out" disabled='disabled' v-else>
+                Sold Out!
             </button>
-            <span v-if='lesson.availableInventory < 1'>
-                All out!
-            </span>
-            <span v-else-if="lesson.availableInventory  < 5 ">
+            <div class="stock" v-if="lesson.availableInventory  < 5 ">
                 Only {{lesson.availableInventory}} left!
-            </span>
-            <span v-else>Buy Now</span>
+            </div>
         </div>
     </div>
 </template>
